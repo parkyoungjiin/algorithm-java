@@ -11,15 +11,13 @@ public class Main {
 
             //2진수 변환
             String bs = Integer.toBinaryString(n);
-            char[] ans = bs.toCharArray();
 
             //1의 위치 공백으로 한 줄에 출력
-            for (int i = 0; i < ans.length; i++){
-                if (ans[i] == '1'){
-                    System.out.print(i + " ");
+            for (int i = bs.length() - 1; i >= 0; i--){
+                if (bs.charAt(i) == '1'){
+                    System.out.print(bs.length() - i - 1 + " "); // 출력의 핵심부분
                 }
             }
-            System.out.println();
         }
 
     }
