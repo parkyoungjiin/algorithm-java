@@ -5,6 +5,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
+
+// 참고 링크 : https://velog.io/@yoonuk/%EB%B0%B1%EC%A4%80-11057-%EC%98%A4%EB%A5%B4%EB%A7%89-%EC%88%98-Java
+
 public class Main {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,19 +22,13 @@ public class Main {
         }
 
         // length = 2~n
-
         for (int i = 2; i <= n ; i++){
-            long tempSum = 0;
-            for (int j = 0; j <=9 ; j++){
-                tempSum = (tempSum + dp[i-1][j]) % mod;
+            for (int j = 0; j <= 9; j++){
+                for (int k = 0; k <= j; k++){
+                    dp[i][j] += dp[i-1][k];
+                }
+                dp[i][j] %= mod;
             }
-
-            dp[i][0] = tempSum;
-
-            for (int j = 1; j <= 9 ; j++){
-                dp[i][j] = (dp[i][j-1] - (dp[i-1][j] + dp[i-2][j])) % mod;
-            }
-
         }
 
         long result = 0;
