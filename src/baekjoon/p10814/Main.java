@@ -1,60 +1,36 @@
 package baekjoon.p10814;
+import java.io.*;
 import java.util.*;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
 import java.util.StringTokenizer;
-import java.io.IOException;
 import java.util.Collections;
 
 public class Main {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int n = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
 
-        List<Customer> customers = new ArrayList<Customer>();
+        StringBuilder initMember[] = new StringBuilder[201];//나이는 1이상 200이하이므로 크기를 201까지 지정해준다.
 
+        for (int i = 0; i < 201; i++) {
+            initMember[i] = new StringBuilder(); //StringBuilder 배열이기 때문에 해당 StringBuilder를 생성해주어야한다.(요소마다)
+        }
 
-        for (int i = 0; i < n ; i++){
-            st = new StringTokenizer(br.readLine()); // new StringTokenizer("문자열"); -> " " 공백을 기준으로 문자열을 토큰화 하여 저장.
-
+        for (int i = 0; i < N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
             int age = Integer.parseInt(st.nextToken());
-            String name = st.nextToken();
-
-            Customer custom = new Customer(i, age, name);
-            customers.add(custom);
+            //출력 형식을 배열에 추가해준다.(같은 나이일 때 이러면 등록된 순서대로 나옴)
+            initMember[age].append(age + " " + st.nextToken() + "\n");
         }
 
-        Collections.sort(customers, new Comparator<Customer>(){
-            //나이 오름차순, 나이 동률 시 가입순 오름차순
-            @Override
-            public int compare(Customer o1, Customer o2){
-                if (o1.old == o2.old){
-                    return o1.index - o2.index;
-                }
+        br.close();
 
-                return o1.old - o2.old; //나이 오름차순
-            }
-        });
-
-        //나이 이름
-        for (Customer c : customers){
-            System.out.println(c.old + " " + c.name);
+        for (StringBuilder sb : initMember) {
+            bw.write(sb.toString());
         }
 
-    }//main method
-
-    static class Customer {
-        int index;
-        int old;
-        String name;
-
-        //생성자
-        public Customer(int index, int old, String name){
-            this.index = index;
-            this.old = old;
-            this.name = name;
-        }
+        bw.flush();
+        bw.close();
     }
 }//Main class
