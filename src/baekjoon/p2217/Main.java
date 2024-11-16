@@ -1,5 +1,6 @@
 package baekjoon.p2217;
 import java.util.Arrays;
+import java.lang.Math;
 import java.util.Comparator;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,20 +17,11 @@ public class Main {
         }
 
         Arrays.sort(lopes, Comparator.reverseOrder()); // 로프 최대중량 배열 내림차순 정렬
-        int answer = lopes[0]; // 로프가 1개일 때 최대중량으로 설정.
-        for (int k = 2; k <=n ; k++){ // k = 로프 개수
-            for (int w = n; w <= 10000 ; w+=n){ // w = 무게
-                int min_weight = lopes[k-1]; // min_weight = 가장 작은 하중
-                int weight = w / k; // 로프 분할무게
+        int answer = 0;
+        for (int k = 1; k <=n ; k++){ // k = 로프 개수
+            int weight = lopes[k-1] * k; // 최대 무게
 
-                if (min_weight < weight){
-                    break;
-                }
-
-                if (answer < w){ // k개 로프 사용 시 기존 무게보다 더 많이 들 수 있는 경우
-                    answer = w;
-                }
-            }
+            answer = Math.max(weight, answer); // 큰 값으로 갱신
         }
 
         System.out.println(answer);
