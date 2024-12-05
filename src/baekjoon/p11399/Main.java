@@ -9,12 +9,14 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        String[] temp = br.readLine().split(" ");
-        int [] nums = new int[temp.length];
+//        String[] temp = br.readLine().split(" ");
+//        int [] nums = new int[temp.length];
+//
+//        for (int i = 0; i < temp.length ; i++){
+//            nums[i] = Integer.parseInt(temp[i]);
+//        }
 
-        for (int i = 0; i < temp.length ; i++){
-            nums[i] = Integer.parseInt(temp[i]);
-        }
+        int [] nums = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 
         Arrays.sort(nums);
         int [] time = new int[n]; // 인출 시간 저장 배열
