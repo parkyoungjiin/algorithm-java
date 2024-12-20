@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
+        sc.nextLine();
         int count = 0;
         for (int i=0; i<n; i++){
             String word = sc.nextLine();
@@ -20,7 +21,7 @@ public class Main {
 
     }//main
 
-    //그룹단어 체크 함수
+    //그룹단어 체크 함수∂
     static boolean check(String word){
 
         boolean[] alpha = new boolean[26]; //알파벳 배열 선언
