@@ -44,9 +44,9 @@ public class Main {
 
         }
 
-        double answer = grade / credit;
+//        double answer = ;
 
-        answer = Math.round(answer * 1000000) / 1000000.0;
+        double answer = Math.round((grade / credit) * 1000000) / 1000000.0;
 
         System.out.println(answer);
 
