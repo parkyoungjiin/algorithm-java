@@ -17,52 +17,51 @@ public class Main {
         N = Integer.parseInt(str[0]);
         K = Integer.parseInt(str[1]);
 
-        bfs(N);
+        System.out.println(bfs(N));
+
     }
 
-    public static int bfs(int cur){
+    static int bfs(int cur){
         Queue<Integer> queue = new LinkedList<>();
-        queue.offer(cur); // 현 위치 queue에 넣음.
-        visited[cur] = true; //현 위치 방문 처리
+        queue.offer(cur);
+        visited[cur] = true;
 
         while(!queue.isEmpty()){
-            //size 만큼 반복을 돌면서 횟수 처리를 위함.
+
             int size = queue.size();
 
-            for (int i = 0 ; i < size ; i++){
-                int currentN = queue.poll();
+            for(int j = 0; j <size; j++){
+                int val = queue.poll();
 
-                if (currentN == K){
-                    System.out.println(cnt);
+                if (val == K){
                     return cnt;
                 }
 
-                for (int j = 0 ; j < 3; j++){
-                    int next;
-                    if (j < 2){
-                        next = currentN + dx[j];
+                for(int i=0; i<3; i++){
+                    int nx;
+
+                    if(dx[i]> 1){
+                        nx = dx[i] * val;
                     }else{
-                        next = currentN * dx[j];
+                        nx = dx[i] + val;
                     }
 
-                    // 예외 처리 ( 0 < next < 100001이 아닌 경우, 방문 처리 된 경우)
-                    if (next < 0 || next > 100000 || visited[next]){
-                        continue;
+                    if(0 <= nx && nx < 100001 && !visited[nx]){
+                        visited[nx] = true;
+                        queue.offer(nx);
                     }
+                }//for i
 
-                    // 방문처리
-                    visited[next] = true;
-
-                    // 큐에 삽입.
-                    queue.offer(next);
-
-                } // j for
-            }// i for
-
+            }// for j
             cnt++;
 
-        } //while for
+
+
+
+        }
         return -1;
-    }//bfs
+    }
+
+
 
 }//Main class
