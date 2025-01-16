@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class Main{
     static int n, cnt;
@@ -30,13 +31,14 @@ public class Main{
             arr[i] = int_input;
 
         }
+
         ArrayList<Integer> ans = new ArrayList<>();
 
         for(int i=0; i<n; i++){
             for (int j=0; j<n; j++){
                 if (arr[i][j] == 1){
                     cnt=1; //단지 내 집 개수
-                    dfs(i, j);
+                    bfs(i, j);
                     ans.add(cnt);
                 }
             }
@@ -66,6 +68,42 @@ public class Main{
                 }
             }
 
+        }
+    }
+
+    static void bfs(int x, int y){
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(new Node(x,y));
+        arr[x][y] = 0; //방문처리
+
+        while(!queue.isEmpty()){
+            Node node = queue.poll();
+            int currentX =node.x;
+            int currentY =node.y;
+
+            for(int i=0; i<4; i++){
+                int nx = dx[i] + currentX;
+                int ny = dy[i] + currentY;
+
+                if(0<=nx && nx <n && 0<=ny && ny <n){
+                    if(arr[nx][ny] == 1){
+                        arr[nx][ny] = 0;
+                        queue.add(new Node(nx, ny));
+                        cnt++;
+                    }
+                }
+            }//for 4
+        }//while
+
+    }
+
+    static class Node{
+        int x;
+        int y;
+
+        public Node(int x, int y){
+            this.x = x;
+            this.y = y;
         }
     }
 }
