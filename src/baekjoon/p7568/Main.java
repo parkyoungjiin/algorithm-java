@@ -33,10 +33,11 @@ public class Main {
 
         }//for
 
-        //비교
-        int rank = 1;
 
+        //비교
         for (int j = 0; j < n; j++) {
+
+            int rank = 1;
             Human h1 = human_lst.get(j);
 
             for (int k = 0; k < n; k++) {
@@ -46,16 +47,11 @@ public class Main {
                     rank += 1;
                 }
             }//for k
-            rank_lst.add(j, rank);
-            rank = 1;
+            System.out.print(rank + " ");
         }//for j
 
 
-        for (int q = 0; q < n; q++) {
-            Integer answer = rank_lst.get(q);
-            System.out.print(answer + " ");
 
-        }
 
 
 
