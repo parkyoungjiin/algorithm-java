@@ -9,33 +9,40 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         int n = Integer.parseInt(br.readLine());
 
-        //중복된 단어 저장 X
-        Set<String> temp = new HashSet<String>();
-        for (int i = 0; i < n; i++){
-            temp.add(br.readLine());
+        //리스트 제작
+        ArrayList<String> arr = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            String input = br.readLine();
+            arr.add(input);
         }
 
-        String [] words = new String[temp.size()];
-        temp.toArray(words); // set -> Array
+        //정렬
+        // 1. 짧은 순
+        // 2. 사전 순
+        // 3. 중복 제거
 
-
-        //길이가 짧은 것 -> 사전 순
-        Arrays.sort(words, new Comparator<String>(){
+        Collections.sort(arr, new Comparator<String>(){
             @Override
             public int compare(String o1, String o2){
-                if (o1.length() == o2.length()){
-                    return o1.compareTo(o2); //사전순 정렬
+                //짧은 순
+                if(o1.length() != o2.length()){
+                    return o1.length() - o2.length();
+                } else {
+                    return o1.compareTo(o2);
                 }
-                return o1.length() - o2.length(); // 길이 짧은 순 정렬
+
             }
-        });//Arrays.sort()
+        });
 
-        for (String word : words){
-            System.out.println(word);
+        //중복 제거를 위해 arr을 set으로 변환
+        arr = new ArrayList<>(new LinkedHashSet<>(arr));
+
+        for(String a : arr){
+            System.out.println(a);
         }
-
-
     }//main
 }//class
