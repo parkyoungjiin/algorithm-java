@@ -26,37 +26,33 @@ public class Main {
 
             if (ch == '<') {
                 isTag = true;
-                while (!stack.isEmpty()) {
-                    sb.append(stack.pop());
-                }
+                flushStack(stack, sb);
                 sb.append(ch);
             } else if(ch == '>'){
                 isTag = false;
                 sb.append(ch);
-            }else if(ch == ' '){
-                if(isTag){ //태그 안 공백일 경우 sb에 바로 넣음.
-                    sb.append(ch);
-                }else{//태그 밖 공백 -> 기존 stack 값이 있으면 sb에 넣어서 초기화
-                    while (!stack.isEmpty()) {
-                        sb.append(stack.pop());
-                    }
-                    sb.append(" ");
-                }
+            } else if (isTag) {// 태그 안
+                sb.append(ch);
+            } else if(ch == ' '){ //태그 밖 공백 -> stack값들을 sb + " " 넣어주고 초기화
+                flushStack(stack, sb);
+                sb.append(" ");
             }else{
-                if(isTag){
-                    sb.append(ch);
-                }else{
-                    stack.push(ch);
-                }
-
+                stack.push(ch);
             }
         }
 
-        while (!stack.isEmpty()) {
-            sb.append(stack.pop());
-        }
+        //스택에 남아있으면 sb에 넣고 초기화
+        flushStack(stack, sb);
 
         System.out.println(sb);
 
+    }//main method
+
+    private static void flushStack(Stack<Character> stack, StringBuilder sb) {
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop());
+        }
     }
+
+
 }
